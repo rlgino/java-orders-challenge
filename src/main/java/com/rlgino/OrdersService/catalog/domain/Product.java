@@ -2,6 +2,7 @@ package com.rlgino.OrdersService.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class Product {
     }
 
     public Product(UUID id, String name, BigDecimal price) {
+        Assert.notNull(id, "ID cannot be null");
         this.id = id;
         this.name = name;
         this.price = price;
