@@ -7,7 +7,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import java.math.BigDecimal;
 import java.util.*;
 
-@Entity
+@Entity(name = "ORDERS")
 public class Order extends AbstractAggregateRoot<Order> {
     @EmbeddedId
     private OrderID id;

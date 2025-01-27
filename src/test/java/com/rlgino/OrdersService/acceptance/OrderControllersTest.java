@@ -167,16 +167,10 @@ public class OrderControllersTest {
     public void deleteOrder_ShouldDeleteOrder() throws Exception {
         final Order order = OrderMother.dummy();
         orderRepository.save(order);
-        final Order updatedOrder = new Order(order.getId());
-        String bodyRequest  = ow.writeValueAsString(updatedOrder);
 
-        this.mockMvc.perform(put("/orders").contentType(APPLICATION_JSON_UTF8).content(bodyRequest))
+        this.mockMvc.perform(delete("/orders/" + order.getId()))
                 .andDo(print()).andExpect(status().isOk())
                 .andReturn();
-
-        Optional<Order> actualOrder = orderRepository.findById(order.getId());
-        assertTrue(actualOrder.isPresent());
-        assertEquals(updatedOrder, actualOrder.get());
     }
 
     @Test

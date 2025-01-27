@@ -57,9 +57,9 @@ public class ProductServiceTest {
 
     @Test
     public void listProducts_returnListWithTwoProducts() {
-        final Product product1 = new Product();
-        final Product product2 = new Product();
-        Product deletedProduct = new Product();
+        final Product product1 = ProductMother.dummy();
+        final Product product2 = ProductMother.dummy();
+        Product deletedProduct = ProductMother.dummy();
         deletedProduct = deletedProduct.delete();
         when(productRepository.findAll()).thenReturn(Arrays.asList(product1, product2, deletedProduct));
 
