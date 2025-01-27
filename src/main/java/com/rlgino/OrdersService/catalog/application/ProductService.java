@@ -1,9 +1,9 @@
-package com.rlgino.OrdersService.application;
+package com.rlgino.OrdersService.catalog.application;
 
-import com.rlgino.OrdersService.domain.exceptions.DuplicatedProductException;
-import com.rlgino.OrdersService.domain.Product;
-import com.rlgino.OrdersService.domain.ProductRepository;
-import com.rlgino.OrdersService.domain.exceptions.ProductNotExistsException;
+import com.rlgino.OrdersService.catalog.domain.exceptions.DuplicatedProductException;
+import com.rlgino.OrdersService.catalog.domain.Product;
+import com.rlgino.OrdersService.catalog.domain.ProductRepository;
+import com.rlgino.OrdersService.catalog.domain.exceptions.ProductNotExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

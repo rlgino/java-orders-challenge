@@ -1,4 +1,4 @@
-package com.rlgino.OrdersService.domain.exceptions;
+package com.rlgino.OrdersService.order.domain.exceptions;
 
 import java.util.UUID;
 

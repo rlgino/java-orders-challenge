@@ -1,4 +1,4 @@
-package com.rlgino.OrdersService.domain;
+package com.rlgino.OrdersService.order.domain;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

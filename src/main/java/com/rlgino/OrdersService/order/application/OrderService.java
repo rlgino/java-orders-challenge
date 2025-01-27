@@ -1,9 +1,10 @@
-package com.rlgino.OrdersService.application;
+package com.rlgino.OrdersService.order.application;
 
-import com.rlgino.OrdersService.domain.Order;
-import com.rlgino.OrdersService.domain.OrderRepository;
-import com.rlgino.OrdersService.domain.exceptions.DuplicatedOrderException;
-import com.rlgino.OrdersService.domain.exceptions.OrderNotExistsException;
+import com.rlgino.OrdersService.order.domain.Order;
+import com.rlgino.OrdersService.order.domain.OrderID;
+import com.rlgino.OrdersService.order.domain.OrderRepository;
+import com.rlgino.OrdersService.order.domain.exceptions.DuplicatedOrderException;
+import com.rlgino.OrdersService.order.domain.exceptions.OrderNotExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public Optional<Order> findOrderByID(UUID id) {
+    public Optional<Order> findOrderByID(OrderID id) {
         return this.orderRepository.findById(id);
     }
 
@@ -37,19 +38,19 @@ public class OrderService {
         if (existentOrder.isPresent()) throw new DuplicatedOrderException(order.getId());
 
         // We suspect that can contain product Items
-        final Order updatedOrder = order.calculateAmount();
-        this.orderRepository.save(updatedOrder);
+        //final Order updatedOrder = order.calculateAmount();
+        this.orderRepository.save(order);
     }
 
     public void updateOrder(Order order) {
         final Optional<Order> existentOrder = this.orderRepository.findById(order.getId());
         if (existentOrder.isEmpty()) throw new OrderNotExistsException(order.getId());
         // We suspect that can contain product Items
-        final Order updatedOrder = order.calculateAmount();
-        this.orderRepository.save(updatedOrder);
+//        final Order updatedOrder = order.calculateAmount();
+        this.orderRepository.save(order);
     }
 
-    public void deleteOrder(UUID id) {
+    public void deleteOrder(OrderID id) {
         final Optional<Order> order = this.orderRepository.findById(id);
         if (order.isEmpty()) throw new OrderNotExistsException(id);
         final Order existentOrder = order.get();

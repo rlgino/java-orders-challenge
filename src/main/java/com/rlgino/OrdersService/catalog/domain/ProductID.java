@@ -1,4 +1,10 @@
 package com.rlgino.OrdersService.catalog.domain;
 
-public record ProductID() {
+import java.util.UUID;
+import org.springframework.util.Assert;
+
+public record ProductID(UUID value) {
+    public ProductID {
+        Assert.notNull(value, "Product ID can not be null");
+    }
 }

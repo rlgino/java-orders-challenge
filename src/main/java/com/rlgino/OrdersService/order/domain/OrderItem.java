@@ -1,4 +1,4 @@
-package com.rlgino.OrdersService.domain;
+package com.rlgino.OrdersService.order.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -14,14 +14,8 @@ public class OrderItem {
     @Column
     private int quantity;
 
-    @OneToOne
-    @JsonIgnore
-    private Product product;
     @Transient
-    private UUID productId;
-
-    @Transient
-    private UUID orderId;
+    private OrderID orderId;
 
     @Column(name="deletedAt")
     @JsonIgnore
@@ -29,14 +23,6 @@ public class OrderItem {
 
     public UUID getId() {
         return id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public int getQuantity() {
@@ -47,11 +33,7 @@ public class OrderItem {
         return deleteAt;
     }
 
-    public UUID getProductId() {
-        return productId;
-    }
-
-    public UUID getOrderId() {
+    public OrderID getOrderId() {
         return orderId;
     }
 
@@ -59,7 +41,6 @@ public class OrderItem {
     public OrderItem delete() {
         final OrderItem oi = new OrderItem();
         oi.id = this.id;
-        oi.product = this.product;
         oi.quantity = this.quantity;
         oi.deleteAt = new Date();
         return oi;

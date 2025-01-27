@@ -1,10 +1,11 @@
 package com.rlgino.OrdersService.application;
 
-import com.rlgino.OrdersService.domain.exceptions.DuplicatedProductException;
-import com.rlgino.OrdersService.domain.Product;
+import com.rlgino.OrdersService.catalog.application.ProductService;
+import com.rlgino.OrdersService.catalog.domain.exceptions.DuplicatedProductException;
+import com.rlgino.OrdersService.catalog.domain.Product;
 import com.rlgino.OrdersService.domain.ProductMother;
-import com.rlgino.OrdersService.domain.ProductRepository;
-import com.rlgino.OrdersService.domain.exceptions.ProductNotExistsException;
+import com.rlgino.OrdersService.catalog.domain.ProductRepository;
+import com.rlgino.OrdersService.catalog.domain.exceptions.ProductNotExistsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

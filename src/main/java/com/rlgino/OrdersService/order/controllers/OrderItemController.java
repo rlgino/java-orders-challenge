@@ -1,9 +1,9 @@
-package com.rlgino.OrdersService.controllers;
+package com.rlgino.OrdersService.order.controllers;
 
-import com.rlgino.OrdersService.application.OrderItemService;
-import com.rlgino.OrdersService.domain.OrderItem;
-import com.rlgino.OrdersService.domain.exceptions.DuplicatedOrderItemException;
-import com.rlgino.OrdersService.domain.exceptions.OrderItemNotExistsException;
+import com.rlgino.OrdersService.order.application.OrderItemService;
+import com.rlgino.OrdersService.order.domain.OrderItem;
+import com.rlgino.OrdersService.order.domain.exceptions.DuplicatedOrderItemException;
+import com.rlgino.OrdersService.order.domain.exceptions.OrderItemNotExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.rlgino.OrdersService.domain.exceptions;
+package com.rlgino.OrdersService.order.domain.exceptions;
 
 public class InvalidQuantityException extends RuntimeException {
     public InvalidQuantityException() {

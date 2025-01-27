@@ -1,7 +1,7 @@
-package com.rlgino.OrdersService.application;
+package com.rlgino.OrdersService.order.application;
 
-import com.rlgino.OrdersService.domain.*;
-import com.rlgino.OrdersService.domain.exceptions.*;
+import com.rlgino.OrdersService.order.domain.*;
+import com.rlgino.OrdersService.order.domain.exceptions.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,12 +13,10 @@ import java.util.UUID;
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final OrderRepository orderRepository;
-    private final ProductRepository productRepository;
 
-    public OrderItemService(OrderItemRepository orderItemRepository, OrderRepository orderRepository, ProductRepository productRepository) {
+    public OrderItemService(OrderItemRepository orderItemRepository, OrderRepository orderRepository) {
         this.orderItemRepository = orderItemRepository;
         this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
     }
 
     public Optional<OrderItem> findOrderItemByID(UUID id) {
@@ -49,16 +47,10 @@ public class OrderItemService {
     }
 
     private void saveOrderItem(OrderItem orderItem) {
-        final Optional<Product> productOpt = productRepository.findById(orderItem.getProductId());
-        if (productOpt.isEmpty()) throw new ProductNotExistsException(orderItem.getProductId());
-
         final Optional<Order> orderOpt = orderRepository.findById(orderItem.getOrderId());
         if (orderOpt.isEmpty()) throw new OrderNotExistsException(orderItem.getOrderId());
         Order order = orderOpt.get();
-        order = order.calculateAmount();
 
-        if (orderItem.getQuantity() <= 0) throw new InvalidQuantityException();
-        orderItem.setProduct(productOpt.get());
         orderRepository.save(order);
         orderItemRepository.save(orderItem);
     }

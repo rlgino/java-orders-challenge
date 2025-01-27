@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.rlgino.OrdersService.PostgresContainerTest;
 import com.rlgino.OrdersService.TeamviewerChallengeApplication;
-import com.rlgino.OrdersService.domain.Order;
 import com.rlgino.OrdersService.domain.OrderMother;
-import com.rlgino.OrdersService.domain.OrderRepository;
+import com.rlgino.OrdersService.order.domain.Order;
+import com.rlgino.OrdersService.order.domain.OrderID;
+import com.rlgino.OrdersService.order.domain.OrderRepository;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,8 +97,8 @@ public class OrderControllersTest {
 
     @Test
     public void getOrders_ShouldReturnList() throws Exception {
-        final Order order1 = new Order(UUID.randomUUID());
-        final Order order2 = new Order(UUID.randomUUID());
+        final Order order1 = new Order(new OrderID(UUID.randomUUID()));
+        final Order order2 = new Order(new OrderID(UUID.randomUUID()));
         this.orderRepository.save(order1);
         this.orderRepository.save(order2);
 

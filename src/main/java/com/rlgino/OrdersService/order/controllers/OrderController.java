@@ -1,9 +1,10 @@
-package com.rlgino.OrdersService.controllers;
+package com.rlgino.OrdersService.order.controllers;
 
-import com.rlgino.OrdersService.application.OrderService;
-import com.rlgino.OrdersService.domain.Order;
-import com.rlgino.OrdersService.domain.exceptions.DuplicatedOrderException;
-import com.rlgino.OrdersService.domain.exceptions.OrderNotExistsException;
+import com.rlgino.OrdersService.order.application.OrderService;
+import com.rlgino.OrdersService.order.domain.Order;
+import com.rlgino.OrdersService.order.domain.OrderID;
+import com.rlgino.OrdersService.order.domain.exceptions.DuplicatedOrderException;
+import com.rlgino.OrdersService.order.domain.exceptions.OrderNotExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class OrderController {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>("Invalid UUID: " + id, HttpStatus.BAD_REQUEST);
         }
-        Optional<Order> orderOpt = this.orderService.findOrderByID(parsedID);
+        Optional<Order> orderOpt = this.orderService.findOrderByID(new OrderID(parsedID));
         if (orderOpt.isEmpty())
             return new ResponseEntity<>(String.format("Order with ID %s not found", id), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(orderOpt.get(), HttpStatus.OK);
@@ -57,7 +58,7 @@ public class OrderController {
     public ResponseEntity deleteOrder(@PathVariable String id) {
         try {
             final UUID parsedID = UUID.fromString(id);
-            this.orderService.deleteOrder(parsedID);
+            this.orderService.deleteOrder(new OrderID(parsedID));
         }catch (OrderNotExistsException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (IllegalArgumentException e) {

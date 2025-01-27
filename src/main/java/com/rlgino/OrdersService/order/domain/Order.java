@@ -1,18 +1,18 @@
-package com.rlgino.OrdersService.domain;
+package com.rlgino.OrdersService.order.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-@Entity(name = "ORDERS")
-public class Order {
-    @Id
-    @Column(name = "id", nullable = false)
-    private UUID id;
+@Entity
+public class Order extends AbstractAggregateRoot<Order> {
+    @EmbeddedId
+    private OrderID id;
 
-    @OneToMany(targetEntity=OrderItem.class,cascade = CascadeType.ALL,
+    @OneToMany(targetEntity= OrderItem.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     @JsonIgnore
@@ -24,7 +24,7 @@ public class Order {
     @JsonIgnore
     private Date deleteAt;
 
-    public Order(UUID id) {
+    public Order(OrderID id) {
         this.id = id;
         this.items = new ArrayList<>();
         this.amount = BigDecimal.ZERO;
@@ -32,7 +32,7 @@ public class Order {
 
     public Order() {}
 
-    public UUID getId() {
+    public OrderID getId() {
         return id;
     }
 
@@ -66,13 +66,5 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(id, amount, deleteAt);
-    }
-
-    public Order calculateAmount() {
-       final BigDecimal amount = getItems().stream().map(i -> i.getProduct().getPrice().multiply(new BigDecimal(i.getQuantity()))).reduce(BigDecimal.ZERO, BigDecimal::add);
-        Order newOrder = new Order();
-        newOrder.id = this.id;
-        newOrder.amount = amount;
-        return newOrder;
     }
 }

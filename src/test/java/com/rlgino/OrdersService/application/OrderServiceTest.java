@@ -1,10 +1,12 @@
 package com.rlgino.OrdersService.application;
 
-import com.rlgino.OrdersService.domain.Order;
 import com.rlgino.OrdersService.domain.OrderMother;
-import com.rlgino.OrdersService.domain.OrderRepository;
-import com.rlgino.OrdersService.domain.exceptions.DuplicatedOrderException;
-import com.rlgino.OrdersService.domain.exceptions.OrderNotExistsException;
+import com.rlgino.OrdersService.order.application.OrderService;
+import com.rlgino.OrdersService.order.domain.Order;
+import com.rlgino.OrdersService.order.domain.OrderID;
+import com.rlgino.OrdersService.order.domain.OrderRepository;
+import com.rlgino.OrdersService.order.domain.exceptions.DuplicatedOrderException;
+import com.rlgino.OrdersService.order.domain.exceptions.OrderNotExistsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -32,7 +34,7 @@ public class OrderServiceTest {
 
     @Test
     public void findOrder_returnEmpty() {
-        final UUID id = UUID.randomUUID();
+        final OrderID id = new OrderID(UUID.randomUUID());
         when(orderRepository.findById(id)).thenReturn(Optional.empty());
         Optional<Order> order = this.orderService.findOrderByID(id);
         assertTrue(order.isEmpty());

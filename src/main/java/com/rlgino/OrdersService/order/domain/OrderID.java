@@ -1,4 +1,15 @@
 package com.rlgino.OrdersService.order.domain;
 
-public class OrderID {
+import org.springframework.util.Assert;
+
+import java.util.UUID;
+
+public record OrderID(UUID value) {
+    public OrderID {
+        Assert.notNull(value, "id must not be null");
+    }
+
+    public String toString() {
+        return value.toString();
+    }
 }

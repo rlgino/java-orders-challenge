@@ -1,4 +1,4 @@
-package com.rlgino.OrdersService.domain;
+package com.rlgino.OrdersService.catalog.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
